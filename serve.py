@@ -95,19 +95,17 @@ def draw_bezier_curve(control_pts, n_steps=100, n_subdivisions=5):
     # prepare bezier points
     bezier_pts = calc_bezier_curve(control_pts_np, n_steps)
 
-    # draw curve
+    # draw curve and control points
     ax.plot(*np.array(bezier_pts).T, color='b', label='naive')
-
-    # draw control points
     for idx, (x, y) in enumerate(control_pts_np):
         ax.plot(x, y, marker='o', color='r', ls='')
         ax.annotate(f'P{idx + 1}', (x, y))
 
     # approximate curve using subdivision
-    bezier_pts = calc_bezier_curve_subdivision(control_pts_np, n_subdivisions)
+    subdiv_pts = calc_bezier_curve_subdivision(control_pts_np, n_subdivisions)
 
-    # draw subdivided curve
-    ax.plot(*np.array(bezier_pts).T, color='g', label='subdivision')
+    # draw subdivided curve and points
+    ax.plot(*np.array(subdiv_pts).T, color='g', label='subdivision')
     ax.legend()
 
     return fig
